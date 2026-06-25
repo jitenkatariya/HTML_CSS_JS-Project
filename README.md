@@ -1,3 +1,3 @@
 # HTML_CSS_JS-Project
-I create Weather-App. two CSS code : 1 style.css
-                      2 styleGPT.css
+I create two CSS code : 1 style.css.
+The chatGPT code for polishing : 2 styleGPT.css.
