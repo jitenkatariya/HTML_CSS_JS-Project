@@ -1,0 +1,384 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+
+  width: 100%;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  background: linear-gradient(135deg, #ef9b2e, #1a01f7);
+
+  font-family: "Poppins", sans-serif;
+}
+
+/* Main Weather Card */
+
+.mainBox {
+  height: 550px;
+
+  width: 400px;
+
+  border-radius: 25px;
+
+  background: rgba(255, 255, 255, 0.15);
+
+  backdrop-filter: blur(15px);
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  flex-direction: column;
+
+  color: white;
+
+  animation: showCard 0.5s ease;
+}
+
+@keyframes showCard {
+  from {
+    opacity: 0;
+
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+/* First Page */
+
+.mainBox1 img {
+  width: 180px;
+
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+}
+
+.weather {
+  font-size: 48px;
+
+  font-weight: 600;
+
+  margin-top: 20px;
+}
+
+.forecasts {
+  font-size: 45px;
+
+  font-weight: 300;
+
+  color: #ffd369;
+
+  margin-bottom: 40px;
+}
+
+/* Buttons */
+
+.start,
+.homeBtn {
+  height: 45px;
+
+  width: 160px;
+
+  border-radius: 30px;
+
+  border: none;
+
+  cursor: pointer;
+
+  background: #ffd369;
+
+  color: #222;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  transition: 0.3s;
+}
+
+.start:hover,
+.homeBtn:hover {
+  transform: translateY(-3px) scale(1.05);
+
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+
+  background: #ffea9b;
+}
+
+/* Search Box */
+
+.searchBox {
+  height: 55px;
+
+  width: 330px;
+
+  background: white;
+
+  border-radius: 35px;
+
+  display: flex;
+
+  align-items: center;
+
+  padding: 5px 8px 5px 20px;
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+
+  transition: 0.3s;
+}
+
+.searchBox:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+.searchBox input {
+  flex: 1;
+
+  height: 45px;
+
+  border: none;
+
+  outline: none;
+
+  font-size: 16px;
+
+  font-family: "Poppins", sans-serif;
+
+  color: #333;
+}
+
+.searchBox input::placeholder {
+  color: #999;
+}
+
+/* Search Button */
+
+.img {
+  height: 45px;
+
+  width: 45px;
+
+  border-radius: 50%;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  background: #667eea;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.img:hover {
+  background: #764ba2;
+
+  transform: scale(1.05);
+}
+
+.img img {
+  width: 22px;
+
+  margin: 0;
+
+  filter: brightness(0) invert(1);
+}
+
+/* Weather Icon */
+
+.iconBox {
+  margin-top: 35px;
+
+  text-align: center;
+}
+
+.iconBox img {
+  width: 170px;
+
+  animation: float 3s infinite ease-in-out;
+}
+
+@keyframes float {
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+#desc {
+  text-transform: capitalize;
+
+  font-size: 18px;
+}
+
+/* Temperature */
+
+.tempBox {
+  text-align: center;
+
+  margin-top: 15px;
+
+  line-height: 1.1;
+}
+
+#temp {
+  font-size: 65px;
+
+  font-weight: 600;
+}
+
+#city {
+  font-size: 30px;
+
+  color: #ffd369;
+
+  font-weight: 400;
+}
+
+/* Wind Humidity Section */
+
+.extraInfoBox {
+  width: 330px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-top: 35px;
+}
+
+.wind,
+.humidity {
+  flex: 1;
+
+  height: 85px;
+
+  background: rgba(255, 255, 255, 0.15);
+
+  border-radius: 18px;
+
+  display: flex;
+
+  align-items: center;
+
+  padding: 12px;
+
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  transition: 0.3s;
+}
+
+.wind:hover,
+.humidity:hover {
+  transform: translateY(-5px);
+
+  background: rgba(255, 255, 255, 0.25);
+}
+
+#windIcon,
+#humidityIcon {
+  width: 40px;
+
+  height: 40px;
+
+  margin-right: 12px;
+}
+
+#windSpeed,
+#humiditytype {
+  font-size: 18px;
+
+  font-weight: 700;
+
+  color: white;
+}
+
+.windDate p:last-child,
+.humidityDate p:last-child {
+  font-size: 12px;
+
+  color: #ddd;
+
+  margin-top: 3px;
+}
+
+/* 404 Page */
+
+.mainBox3 h1 {
+  font-size: 100px;
+
+  color: #ffd369;
+}
+
+.mainBox3 p {
+  font-size: 18px;
+}
+
+#info {
+  width: 300px;
+
+  text-align: center;
+
+  margin: 15px;
+
+  color: #ddd;
+}
+
+/* Hide Boxes */
+
+.inactive {
+  display: none;
+}
+
+/* Mobile Responsive */
+
+@media (max-width: 500px) {
+  .mainBox {
+    width: 90%;
+
+    height: 550px;
+  }
+
+  .weather {
+    font-size: 38px;
+  }
+
+  .forecasts {
+    font-size: 35px;
+  }
+
+  .searchBox {
+    width: 85%;
+  }
+
+  .extraInfoBox {
+    width: 85%;
+  }
+}
