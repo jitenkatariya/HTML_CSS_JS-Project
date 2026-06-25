@@ -1,0 +1,316 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ---------- ROOT VARIABLES ---------- */
+
+:root {
+  --bg-primary: #080b16;
+
+  --card-bg: rgba(255, 255, 255, 0.08);
+
+  --border-color: rgba(255, 255, 255, 0.15);
+
+  --text-color: #ffffff;
+
+  --snake-color: #00ff88;
+
+  --food-color: #ff3b3b;
+
+  --primary-btn: #00d9ff;
+}
+
+/* ---------- BODY ---------- */
+
+html,
+body {
+  height: 100%;
+
+  width: 100%;
+}
+
+body {
+  background: radial-gradient(circle at top, #182848, #080b16);
+
+  color: var(--text-color);
+
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  overflow: hidden;
+}
+
+/* ---------- MAIN ---------- */
+
+main,
+section {
+  height: 100%;
+
+  width: 100%;
+}
+
+section {
+  padding: 30px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 25px;
+}
+
+/* ---------- SCORE INFO ---------- */
+
+.infos {
+  width: 100%;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+.info {
+  flex: 1;
+
+  padding: 15px 25px;
+
+  background: var(--card-bg);
+
+  border: 1px solid var(--border-color);
+
+  border-radius: 18px;
+
+  backdrop-filter: blur(10px);
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+
+  text-align: center;
+
+  transition: 0.3s;
+}
+
+.info:hover {
+  transform: translateY(-5px);
+
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.info h3 {
+  font-size: 18px;
+
+  font-weight: 500;
+}
+
+.info span {
+  color: #00d9ff;
+
+  font-size: 25px;
+
+  font-weight: 700;
+}
+
+/* ---------- GAME BOARD ---------- */
+
+.board {
+  flex-grow: 1;
+
+  border-radius: 20px;
+
+  padding: 5px;
+
+  background: rgba(255, 255, 255, 0.05);
+
+  border: 2px solid rgba(255, 255, 255, 0.15);
+
+  display: grid;
+
+  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+
+  grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
+
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+/* ---------- BLOCK ---------- */
+
+.block {
+  border-radius: 50%;
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ---------- SNAKE ---------- */
+
+.fill {
+  background: linear-gradient(135deg, #00ff88, #00c853);
+
+  box-shadow: 0 0 15px #00ff88;
+
+  animation: snakeGlow 0.8s infinite alternate;
+}
+
+@keyframes snakeGlow {
+  from {
+    box-shadow: 0 0 5px #00ff88;
+  }
+
+  to {
+    box-shadow: 0 0 20px #00ff88;
+  }
+}
+
+/* ---------- FOOD ---------- */
+
+.food {
+  background: radial-gradient(circle, #ff6b6b, #ff0000);
+
+  box-shadow: 0 0 20px red;
+
+  animation: foodAnimation 0.7s infinite alternate;
+}
+
+@keyframes foodAnimation {
+  from {
+    transform: scale(0.8);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+/* ---------- BUTTON ---------- */
+
+.btn {
+  padding: 12px 30px;
+
+  border: none;
+
+  border-radius: 30px;
+
+  background: linear-gradient(135deg, #00d9ff, #0072ff);
+
+  color: white;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+
+  box-shadow: 0 10px 25px rgba(0, 217, 255, 0.3);
+}
+
+.btn:hover {
+  transform: scale(1.1);
+
+  box-shadow: 0 15px 35px rgba(0, 217, 255, 0.5);
+}
+
+/* ---------- MODAL ---------- */
+
+.modal {
+  height: 100vh;
+
+  width: 100vw;
+
+  position: fixed;
+
+  top: 0;
+
+  left: 0;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  background: rgba(0, 0, 0, 0.65);
+
+  backdrop-filter: blur(8px);
+}
+
+.modal .start-game,
+.modal .game-over {
+  width: 350px;
+
+  padding: 40px;
+
+  border-radius: 25px;
+
+  background: rgba(255, 255, 255, 0.1);
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  backdrop-filter: blur(20px);
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 25px;
+
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+
+  animation: popup 0.4s ease;
+}
+
+@keyframes popup {
+  from {
+    opacity: 0;
+
+    transform: scale(0.7);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: scale(1);
+  }
+}
+
+.modal h3 {
+  font-size: 30px;
+
+  text-align: center;
+}
+
+/* Hide Game Over Initially */
+
+.modal .game-over {
+  display: none;
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 600px) {
+  section {
+    padding: 15px;
+  }
+
+  .infos {
+    flex-direction: column;
+  }
+
+  .info {
+    padding: 12px;
+  }
+
+  .modal .start-game,
+  .modal .game-over {
+    width: 90%;
+  }
+}
