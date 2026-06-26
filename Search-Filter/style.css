@@ -1,0 +1,95 @@
+   
+    body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #96aaeb, #9d9ef9, #7569f8);
+        font-family: "Helvetica Neue", sans-serif;
+    }
+
+    input {
+        width: 350px;
+        padding: 15px 20px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        font-size: 18px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .card {
+        position: relative;
+        width: 280px;
+        height: 300px;
+        border-radius: 13px;
+        overflow: hidden;
+        cursor: pointer;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+    }
+
+    .bg-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    
+    .blurred-layer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: bottom;
+        filter: blur(10px);
+        z-index: 1;
+        mask-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
+        mask-size: 100% 100%;
+        mask-repeat: no-repeat;
+
+        -webkit-mask-image: linear-gradient(
+            to top,
+            rgba(0,0,0,1),
+            rgba(0,0,0,0)
+        );
+        -webkit-mask-size: 100% 100%;
+        -webkit-mask-repeat: no-repeat;
+    }
+
+    .not {
+      display: none;
+      font-size: 24px;
+      font-weight: bold;
+      color: #f20000;
+      text-align: center;
+      animation: pop 0.8s ease forwards;
+    }
+
+    .content {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        color: white;
+        z-index: 2;
+    }
+
+    .content h3 {
+        margin-bottom: 6px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .content p {
+        font-size: 14px;
+        color: #ddd;
+        line-height: 1.4;
+    }
+
+
+    
+  
