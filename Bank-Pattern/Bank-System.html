@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bank-System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-gradient-to-br from-indigo-200 via-purple-200 to-pink-200 min-h-screen flex items-center justify-center">
+
+    <div class="bg-white/80 backdrop-blur-lg shadow-2xl rounded-2xl p-6 w-96 border border-gray-200">
+      
+      <h1 class="text-3xl font-bold text-center mb-6 text-gray-800">
+        🏦 Smart Bank
+      </h1>
+
+      <!-- Balance -->
+      <div class="bg-gradient-to-r from-green-400 to-emerald-500 text-white rounded-xl p-4 text-center mb-5 shadow-md">
+        <h2 class="text-sm opacity-80">Current Balance</h2>
+        <p id="balance" class="text-3xl font-bold">$0</p>
+      </div>
+
+      <!-- Input -->
+      <input id="amount" type="number" placeholder="Enter amount..."
+        class="w-full p-3 rounded-lg border mb-4" />
+
+      <!-- Buttons -->
+      <div class="grid grid-cols-2 gap-3 mb-4">
+        <button id="depositBtn" class="bg-green-500 text-white p-3 rounded-lg">Deposit</button>
+        <button id="withdrawBtn" class="bg-red-500 text-white p-3 rounded-lg">Withdraw</button>
+      </div>
+
+      <!-- Reset -->
+      <button id="resetBtn" class="w-full bg-gray-800 text-white p-3 rounded-lg mb-4">
+        Reset Account
+      </button>
+
+      <p id="message" class="text-center mb-3"></p>
+
+      <!-- History -->
+      <ul id="history" class="space-y-2 max-h-40 overflow-y-auto"></ul>
+    </div>
+
+    <script>
+      
+      const Bank = (function () {
+        let balance = Number(localStorage.getItem("balance")) || 0;
+        let history = JSON.parse(localStorage.getItem("history")) || [];
+
+        function deposit(amount) {
+          const time = new Date().toLocaleString("en-IN", {
+            dateStyle: "medium",
+            timeStyle: "short",
+          });
+
+          balance += amount;
+
+          history.push({
+            type: "deposit",
+            amount: amount,
+            time: time,
+          });
+
+          localStorage.setItem("balance", balance);
+          localStorage.setItem("history", JSON.stringify(history));
+
+          return "Deposit successful";
+        }
+
+        function withdraw(amount) {
+          if (amount > balance) return "Insufficient balance";
+
+          const time = new Date().toLocaleString("en-IN", {
+            dateStyle: "medium",
+            timeStyle: "short",
+          });
+
+          balance -= amount;
+
+          history.push({
+            type: "withdraw",
+            amount: amount,
+            time: time,
+          });
+
+          localStorage.setItem("balance", balance);
+          localStorage.setItem("history", JSON.stringify(history));
+
+          return "Withdraw successful";
+        }
+
+        return {
+          deposit,
+          withdraw,
+          getBalance: () => balance,
+          getHistory: () => history,
+        };
+      })();
+
+      // DOM
+      const balanceEl = document.getElementById("balance");
+      const amountInput = document.getElementById("amount");
+      const messageEl = document.getElementById("message");
+      const historyEl = document.getElementById("history");
+
+      // ✅ UPDATED UI (WITH DATE TIME)
+      function updateUI() {
+        balanceEl.textContent = `₹${Bank.getBalance()}`;
+        historyEl.innerHTML = "";
+
+        Bank.getHistory().forEach((item) => {
+          const li = document.createElement("li");
+
+          li.className = "bg-gray-100 p-2 rounded";
+
+          li.innerHTML = `
+            <div class="flex justify-between">
+              <span>${item.type === "deposit" ? "Deposit" : "Withdraw"}</span>
+              <span class="${item.type === "deposit" ? "text-green-600" : "text-red-600"} font-semibold">
+                ${item.type === "deposit" ? "+" : "-"} ₹${item.amount}
+              </span>
+            </div>
+            <div class="text-xs text-gray-500">${item.time}</div>
+          `;
+
+          historyEl.appendChild(li);
+        });
+      }
+
+      // EVENTS
+      document.getElementById("depositBtn").addEventListener("click", () => {
+        const amount = Number(amountInput.value);
+
+        if (amount <= 0) {
+          messageEl.textContent = "Enter valid amount";
+          return;
+        }
+
+        messageEl.textContent = Bank.deposit(amount);
+        amountInput.value = "";
+        updateUI();
+      });
+
+      document.getElementById("withdrawBtn").addEventListener("click", () => {
+        const amount = Number(amountInput.value);
+
+        if (amount <= 0) {
+          messageEl.textContent = "Enter valid amount";
+          return;
+        }
+
+        messageEl.textContent = Bank.withdraw(amount);
+        amountInput.value = "";
+        updateUI();
+      });
+
+      document.getElementById("resetBtn").addEventListener("click", () => {
+        localStorage.clear();
+        location.reload();
+      });
+
+      // INIT
+      updateUI();
+    </script>
+  </body>
+</html>
